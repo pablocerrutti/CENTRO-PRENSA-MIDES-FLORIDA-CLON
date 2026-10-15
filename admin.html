@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel editorial | Centro de Prensa</title><link rel="stylesheet" href="assets/css/style.css"><style>
+.editor-auth-screen{position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#005ca9,#003b70);display:flex;align-items:center;justify-content:center;padding:24px}.editor-auth-card{width:min(430px,100%);background:#fff;border-radius:14px;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,.25);text-align:center}.editor-auth-card img{max-width:190px;margin-bottom:18px}.editor-auth-card h2{margin:0 0 8px;color:#17324d}.editor-auth-card p{color:#526575;margin:0 0 20px}.editor-auth-card label{display:block;text-align:left;font-weight:800;color:#17324d;font-size:13px;margin-bottom:8px}.editor-auth-card input{width:100%;box-sizing:border-box;padding:12px 13px;border:1px solid #ccd7df;border-radius:7px;font-size:16px}.editor-auth-actions{display:flex;gap:10px;margin-top:16px}.editor-auth-actions button{flex:1}.editor-auth-error{display:none;margin-top:12px;color:#a22;background:#fff0f0;border-radius:6px;padding:9px;font-size:13px;font-weight:700}.editor-auth-screen.ok{display:none}
+.action-status{margin-top:14px;padding:12px 14px;background:#eef5f9;border-left:4px solid var(--mides-blue);color:var(--mides-dark);font-size:13px;font-weight:700}.action-status.success{border-left-color:#2e8b57}.action-status.error{border-left-color:#c0392b;background:#fff0f0;color:#5b1f1f}.form-actions button:disabled{opacity:.65;cursor:wait}</style><style>
+.admin-calendar-toolbar{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 16px}.admin-calendar-toolbar strong{min-width:190px;text-align:center;font-size:18px;color:var(--mides-dark)}
+.admin-cal-head,.admin-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.admin-cal-head span{text-align:center;font-size:12px;font-weight:800;padding:8px;color:var(--mides-dark)}
+.admin-calendar{width:100%;overflow-x:auto}.admin-cal-head,.admin-cal-grid{min-width:720px}.admin-cal-head span{border:1px solid #dce3e7;background:#eef3f6;border-radius:6px}.admin-cal-day{min-height:135px;border:1px solid #dce3e7;border-radius:7px;background:#fff;padding:8px;overflow:hidden;box-sizing:border-box}.admin-cal-day.outside{background:#f3f5f6;opacity:.55}.admin-cal-day.today{box-shadow:inset 0 0 0 2px var(--mides-blue);background:#f8fbfe}.admin-cal-date{font-weight:900;font-size:13px;margin-bottom:6px;color:var(--mides-dark)}.admin-cal-day.outside .admin-cal-date{color:#78858e}
+.admin-cal-event{display:block;width:100%;text-align:left;border:0;border-left:5px solid var(--mides-blue);background:#f4f7fa;border-radius:5px;padding:6px;margin:4px 0;cursor:pointer;box-sizing:border-box}.admin-cal-event:hover{filter:brightness(.97);transform:translateY(-1px)}.admin-cal-event strong,.admin-cal-event span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.admin-cal-event strong{font-size:11px}.admin-cal-event span{font-size:10px;margin-top:2px}
+.admin-activity-detail{margin-top:18px;padding:18px;border:1px solid #dce3e7;border-radius:10px;background:#f8fafb}.admin-detail-grid{display:grid;grid-template-columns:minmax(180px,280px) 1fr;gap:20px;align-items:start}.admin-detail-grid img{width:100%;max-height:260px;object-fit:cover;border-radius:8px}@media(max-width:800px){.admin-cal-day{min-height:100px}.admin-detail-grid{grid-template-columns:1fr}}
+.func-id-box{display:none;margin:16px 0;padding:16px 18px;border:2px solid #005ca9;border-radius:10px;background:#eef6fc}.func-id-box.show{display:block}.func-id-box .func-id-value{display:inline-block;margin-top:6px;padding:8px 12px;border-radius:7px;background:#fff;border:1px solid #b9d0e2;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:18px;font-weight:900;letter-spacing:.5px;color:#003b70}.func-id-box small{display:block;margin-top:7px;color:#526575}.func-id-box button{margin-top:10px}.editorial-work-module[hidden]{display:none!important}.editorial-work-module:not([hidden]){display:block}.editorial-module-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}.editorial-module-nav a{display:block;padding:16px;background:#eef4f8;border:1px solid #d7e1e8;border-radius:10px;color:var(--mides-dark);text-decoration:none;font-weight:800}.editorial-module-nav a:hover{background:#e4eef5}.editorial-module-nav small{display:block;margin-top:5px;font-weight:500;color:var(--muted)}@media(max-width:800px){.editorial-module-nav{grid-template-columns:1fr 1fr}}@media(max-width:520px){.editorial-module-nav{grid-template-columns:1fr}}.content-filter-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}.content-filter{border:1px solid #ccd7df;background:#fff;color:var(--mides-dark);padding:9px 13px;border-radius:7px;font-weight:800;cursor:pointer}.content-filter.active{background:var(--mides-blue);color:#fff;border-color:var(--mides-blue)}.draft-actions a{display:inline-block;text-decoration:none;padding:9px 13px;border-radius:7px;font-weight:800;background:#eef4f8;color:var(--mides-dark);margin-right:6px}@media(max-width:600px){.content-filter-bar{align-items:stretch}.content-filter-bar>*{flex:1}.content-filter-bar #refresh-published{flex-basis:100%}}</style></head>
+<body class="admin-body">
+<div id="editor-auth-screen" class="editor-auth-screen"><div class="editor-auth-card"><img src="https://www.gub.uy/ministerio-desarrollo-social/sites/ministerio-desarrollo-social/files/styles/documento/public/imagenes/publicaciones/logo_mides.png" alt="MIDES"><h2>Área editorial restringida</h2><p>Ingresá la clave de administrador para acceder al Centro de Prensa.</p><form id="editor-auth-form"><label for="editor-auth-password">Contraseña</label><input id="editor-auth-password" type="password" autocomplete="off" required autofocus><div class="editor-auth-actions"><button type="submit">Ingresar</button></div><div id="editor-auth-error" class="editor-auth-error"></div></form></div></div>
+<header class="site-header"><div class="brand-wrap"><img class="brand-logo" src="https://www.gub.uy/ministerio-desarrollo-social/sites/ministerio-desarrollo-social/files/styles/documento/public/imagenes/publicaciones/logo_mides.png" alt="Ministerio de Desarrollo Social"><div class="brand-divider"></div><div><strong>PANEL EDITORIAL</strong> <span>MIDES Florida</span></div></div><div class="header-module-links"><a class="admin-link" href="index.html">Ver sala de prensa</a><div class="site-module-actions" aria-label="Navegación del sitio">
+  <a class="site-home-button" href="index.html">⌂ Volver a inicio</a>
+  <a class="site-exit-button" href="https://www.gub.uy/ministerio-desarrollo-social/" onclick="return confirm('Vas a salir del Centro de Prensa MIDES Florida. ¿Continuar?')">↗ Salir del sitio</a>
+</div></div></header>
+<main class="admin-main">
+<section class="page-title"><p class="eyebrow">GESTIÓN EDITORIAL</p><h1>Centro de Prensa</h1><p>Los contenidos se guardan en Google Sheets y los publicados aparecen automáticamente en la sala de prensa.</p></section>
+<section class="editor-card">
+<div class="section-heading"><div><p class="eyebrow">CONTENIDO</p><h2 id="form-title">Nuevo comunicado</h2></div><span id="editor-status" class="status">Borrador</span></div>
+<form id="editor-form"><input type="hidden" id="edit-id">
+<div class="form-grid">
+<label>Título<input id="title" required maxlength="180" placeholder="Título del comunicado"></label>
+<label>Fecha<input id="date" type="date" required></label>
+<label>Categoría<select id="category"><option>Comunicado</option><option>Actividad</option><option>Programa</option><option>Institucional</option><option>Convocatoria</option></select></label>
+<label>Etiqueta<input id="tag" maxlength="60" placeholder="Florida"></label>
+<label class="full">Resumen<textarea id="summary" rows="3" maxlength="320" placeholder="Resumen breve para la portada"></textarea></label>
+<label class="full">Contenido<textarea id="content" rows="12" placeholder="Redactá aquí el comunicado completo"></textarea></label>
+</div>
+<div class="media-editor">
+<div class="media-editor-title"><span class="eyebrow blue">MATERIAL MULTIMEDIA</span><h3>Fotos y video de la actividad</h3><p>Las imágenes y videos se almacenan en Google Drive dentro de la carpeta del comunicado.</p></div>
+<div class="form-grid media-grid">
+<label class="full">Foto principal<input id="coverImage" type="url" placeholder="https://.../foto-principal.jpg"><input id="coverFile" type="file" accept="image/*"><button type="button" class="secondary" id="upload-cover-btn">Subir foto principal</button><small class="field-help">Carga independiente en Google Drive, sin límite de tamaño impuesto por el Centro de Prensa.</small></label><div class="upload-status full" id="cover-upload-status">No hay foto principal nueva seleccionada.</div>
+<label class="full">Galería de fotos<input id="imageFiles" type="file" accept="image/*" multiple><button type="button" class="secondary" id="upload-gallery-btn">Subir fotos de galería</button><small class="field-help">Las fotos se agregan a la galería, sin límite de tamaño impuesto por el Centro de Prensa.</small></label><div class="upload-status full" id="image-upload-status">No hay imágenes nuevas seleccionadas.</div>
+<label class="full">Fotos adicionales<textarea id="gallery" rows="4" placeholder="También podés pegar URLs de imágenes, una por línea."></textarea></label>
+<label class="full">Video relacionado<input id="videoFile" type="file" accept="video/*"><button type="button" class="secondary" id="upload-video-btn">Subir video</button><small class="field-help">Carga independiente por fragmentos en Google Drive.</small></label>
+<label class="full">Video guardado<input id="videoUrl" type="url" readonly placeholder="Se completará automáticamente al subir el video"></label><label class="full">Nota de audio (MP3)<input id="audioFile" type="file" accept=".mp3,audio/mpeg"><button type="button" class="secondary" id="upload-audio-btn">Subir audio</button><small class="field-help">Opcional. Carga independiente en Google Drive.</small></label><label class="full">Audio guardado<input id="audioUrl" type="url" readonly placeholder="Se completará automáticamente al subir el MP3"></label>
+<div class="upload-status full" id="video-upload-status">No hay video nuevo seleccionado.</div><div class="upload-status full" id="audio-upload-status">No hay nota de audio seleccionada.</div>
+</div>
+</div>
+<div class="form-actions"><button type="submit" id="save-btn">Guardar borrador</button><button type="button" class="secondary" id="publish-btn">Publicar</button><button type="button" class="ghost" id="clear-btn">Limpiar</button></div><div id="action-status" class="action-status" role="status" aria-live="polite">Listo para trabajar.</div>
+</form></section>
+<section class="editor-card"><div class="section-heading"><div><p class="eyebrow">CONTENIDOS</p><h2>Comunicados publicados</h2><p class="module-help">Acceso directo a los comunicados publicados y a su vista pública. También podés consultar borradores.</p></div><span id="count" class="status">0</span></div><div class="content-filter-bar"><button type="button" class="content-filter active" data-filter="Publicado">Publicados</button><button type="button" class="content-filter" data-filter="Borrador">Borradores</button><button type="button" class="content-filter" data-filter="Todos">Todos</button><button type="button" class="secondary" id="refresh-published">↻ Actualizar</button></div><div id="draft-list" class="draft-list"><p class="empty-state">Consultando Google Sheets…</p></div></section>
+<section class="editor-card"><div class="section-heading"><div><p class="eyebrow">MÓDULOS EDITORIALES</p><h2>Centro de trabajo</h2><p class="module-help">Cada área opera en su propio módulo para evitar interferencias entre comunicados, contactos, mailing, agenda y altas de funcionarios.</p></div></div><nav class="editorial-module-nav"><a href="admin.html">01 · Comunicados<small>Crear, editar, publicar y administrar multimedia.</small></a><a href="contactos-editorial.html">02 · Contactos<small>Leer E-mail 1 - Value y gestionar listas.</small></a><a href="mailing-editorial.html">03 · Mailing<small>Seleccionar listas y comunicados publicados.</small></a><a href="agenda-editorial.html">04 · Agenda<small>Calendario gráfico por área y actividad.</small></a><a href="admin.html#funcionarios-module" onclick="return activateEditorialModule('funcionarios-module')">05 · Alta funcionarios<small>Crear y verificar usuarios en Google Sheets.</small></a><a href="funcionarios.html">06 · Portal funcionarios<small>Acceso de funcionarios y creación de actividades.</small></a></nav></section>
+<section class="editor-card editorial-work-module" id="admin-agenda-module" hidden>
+<div class="section-heading"><div><p class="eyebrow">COORDINACIÓN DE COBERTURA</p><h2>Agenda de actividades</h2><p class="module-help">Vista exclusiva del administrador. Incluye todas las actividades propuestas por los funcionarios, con horario, área, lugar, descripción e imagen.</p></div><span id="admin-agenda-count" class="status">0 actividades</span></div>
+<div class="admin-calendar-toolbar"><button type="button" class="secondary" id="admin-prev-month">‹ Mes anterior</button><strong id="admin-month-label"></strong><button type="button" class="secondary" id="admin-next-month">Mes siguiente ›</button><button type="button" id="admin-today">Hoy</button></div>
+<div id="admin-calendar" class="admin-calendar"><p class="empty-state">Cargando agenda…</p></div>
+<div id="admin-activity-detail" class="admin-activity-detail" hidden></div>
+</section>
+<section class="status-panel"><div><strong>Base editorial</strong><span>Google Sheets + Apps Script</span></div><div><strong>Estado</strong><span id="api-status" class="status">Configurando API</span></div><div><strong>Agenda</strong><a href="funcionarios.html" style="display:inline-block;margin-top:5px;color:var(--mides-blue);font-weight:800;text-decoration:none">Abrir agenda</a></div></section>
+
+<section class="editor-card editorial-work-module" id="contactos-module" hidden>
+<div class="section-heading"><div><p class="eyebrow">AGENDA DE MEDIOS</p><h2>Contactos</h2><p class="module-help">Lectura directa de la hoja <strong>Contactos</strong>. La dirección de correo se toma de la columna <strong>E-mail 1 - Value</strong>.</p></div><span id="contacts-count" class="status">0</span></div>
+<div class="module-toolbar">
+  <span id="contacts-selected" class="status">0 seleccionados</span>
+  <button type="button" id="select-all-contacts">Seleccionar todos</button>
+  <button type="button" class="secondary" id="assign-selected-btn">Asignar seleccionados a una lista</button>
+</div>
+<div id="contacts-list" class="contacts-list"><div class="module-toolbar"><input id="contacts-search" placeholder="Buscar por nombre, medio, correo, teléfono o localidad…"><button type="button" class="secondary" id="refresh-contacts">↻ Actualizar contactos</button></div><p class="empty-state">Leyendo contactos…</p></div>
+</section>
+<section class="editor-card editorial-work-module" id="mailing-module" hidden>
+<div class="section-heading"><div><p class="eyebrow">DISTRIBUCIÓN INSTITUCIONAL</p><h2>Mailing</h2><p class="module-help">Seleccioná las listas de destinatarios y los artículos publicados que integrarán el mailing institucional.</p></div><span id="mailing-count" class="status">0 listas</span></div>
+<div class="mailing-grid">
+<div><h3>Listas de mailing</h3><div id="mailing-lists" class="mailing-lists"><p class="empty-state">Cargando listas…</p></div><button type="button" id="new-list-btn">Nueva lista</button></div>
+<div class="campaign-box"><h3>Contenido del mailing</h3><label>Asunto<input id="campaign-subject" placeholder="Asunto del mailing institucional"></label>
+<h4>Artículos publicados</h4><div id="published-articles" class="mailing-articles"><p class="empty-state">Cargando artículos publicados…</p></div>
+<div class="mailing-actions"><button type="button" id="preview-campaign-btn">Calcular destinatarios</button><button type="button" id="save-campaign-btn" class="secondary">Generar mailing institucional</button><button type="button" id="send-mailing-btn">Enviar por correo</button></div>
+<div id="campaign-preview" class="campaign-preview">Seleccioná listas y artículos.</div>
+<div id="mailing-result" class="campaign-preview" hidden><strong>Mailing generado</strong><br><a id="mailing-link" target="_blank" rel="noopener">Abrir mailing</a><br><a id="whatsapp-link" target="_blank" rel="noopener">Compartir por WhatsApp</a></div></div>
+</div>
+</section>
+<section class="editor-card editorial-work-module" id="funcionarios-module" hidden>
+<div class="section-heading"><div><p class="eyebrow">GESTIÓN DE ACCESOS</p><h2>Alta de usuarios funcionarios</h2><p class="module-help">Cada usuario queda registrado en Google Sheets con rol <strong>Funcionario</strong>. La contraseña inicial es provisoria y debe cambiarse obligatoriamente en el primer acceso.</p></div><span id="func-count" class="status">0 usuarios</span></div>
+<div class="form-grid">
+<label>Nombre<input id="func-name" placeholder="Nombre y apellido" required></label>
+<label>Área de trabajo<input id="func-area" placeholder="Área / unidad" required></label>
+<label>Contraseña provisoria<input id="func-password" type="password" minlength="8" placeholder="Mínimo 8 caracteres" required></label>
+<label>Rol<select id="func-role" disabled><option>Funcionario</option></select></label>
+</div>
+<div class="form-actions"><button type="button" id="func-add">Agregar funcionario</button></div><div id="func-id-box" class="func-id-box" role="status" aria-live="polite"><strong>✓ Usuario creado y verificado en Google Sheets</strong><br><span>ID única asignada:</span><div id="func-id-value" class="func-id-value"></div><span>Contraseña provisoria:</span><div id="func-password-value" class="func-id-value"></div><small id="func-meta-value">Estado: Activo · Fecha: — · Color de área: —</small><br><small>La ID, contraseña provisoria, rol, estado, fecha y color quedan registrados en la hoja <strong>Funcionarios</strong>. El usuario deberá cambiar la contraseña al ingresar.</small><button type="button" class="secondary" id="func-copy-id">Copiar ID</button><button type="button" class="secondary" id="func-copy-password">Copiar clave</button></div>
+<div id="func-list" class="draft-list"><p class="empty-state">Cargando funcionarios…</p></div>
+</section>
+</section>
+<div id="list-modal" class="modal" hidden><div class="modal-card"><div class="section-heading"><h2>Asignar contactos a lista</h2><button type="button" class="ghost" onclick="closeListModal()">Cerrar</button></div><p id="assignment-summary" class="module-help">Seleccioná una lista existente o creá una nueva.</p><label class="modal-label">Lista existente<select id="assignment-list"><option value="">Seleccionar…</option></select></label><div class="modal-label"><strong>O crear nueva lista</strong><input id="assignment-new-name" placeholder="Ej.: Radios de Florida"></div><label class="modal-label">Descripción<textarea id="assignment-new-description" rows="2" placeholder="Descripción opcional"></textarea></label><div class="form-actions"><button type="button" id="save-assignment-btn" class="secondary">Asignar seleccionados</button></div></div></div></main>
+<div id="notice" class="toast" hidden></div>
+<script src="config.js"></script>
+<script>
+
+let editorKey="",items=[],pendingVideo=null,pendingImages=[],pendingAudio=null,editorialAuthorized=false,editorialAuthPromise=null,currentContentFilter="Publicado";
+const $=id=>document.getElementById(id),today=new Date().toISOString().slice(0,10);
+$("date").value=today;
+function showNotice(t,type="success"){const n=$("notice");if(n){n.textContent=t;n.className="toast "+type;n.hidden=false;clearTimeout(window.noticeTimer);window.noticeTimer=setTimeout(()=>n.hidden=true,6500)}const s=$("action-status");if(s){s.textContent=t;s.className="action-status "+type}}
+function esc(v){return String(v??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}
+function key(){return editorialAuthorized?(window.PRENSA_CONFIG?.adminKey||"Ik3r2026"):""}
+async function authorizeEditorial(){
+  if(editorialAuthorized)return true;
+  // Cada nueva carga del panel exige ingresar nuevamente la contraseña editorial.
+  const input=$("editor-auth-password"),screen=$("editor-auth-screen"),error=$("editor-auth-error");
+  const k=String(input?.value||"");
+  if(k!=="Ik3r2026"){
+    if(error){error.textContent="⚠ Contraseña incorrecta.";error.style.display="block"}
+    input?.focus();return false;
+  }
+  // La contraseña editorial es única y literal. No se cifra ni se consulta
+  // al servidor para decidir si se cierra la pantalla de acceso.
+  // El servidor recibe la misma clave en cada operación posterior.
+  editorKey="Ik3r2026";
+  editorialAuthorized=true;
+  try{sessionStorage.setItem("mides_editorial_session","authorized")}catch(_){}
+  if(screen)screen.classList.add("ok");
+  if(error)error.style.display="none";
+  // Intentamos cargar inmediatamente; cualquier problema de API queda
+  // visible dentro del panel y no vuelve a bloquear el acceso.
+  return true;
+}
+$("editor-auth-form").addEventListener("submit",async e=>{e.preventDefault();if(await authorizeEditorial()){load();}});
+document.querySelectorAll(".content-filter").forEach(btn=>btn.addEventListener("click",()=>{currentContentFilter=btn.dataset.filter;document.querySelectorAll(".content-filter").forEach(b=>b.classList.toggle("active",b===btn));render();}));
+$("refresh-published").addEventListener("click",()=>load());
+
+async function post(action,extra={}){
+ const k=key();if(!k)throw new Error("No se ingresó la clave editorial");
+ if(!window.PRENSA_CONFIG?.apiUrl)throw new Error("Falta configurar apiUrl en config.js");
+ const body=new URLSearchParams({action,key:k,...extra});
+ let res;
+ try{
+  res=await fetch(window.PRENSA_CONFIG.apiUrl,{method:"POST",body,cache:"no-store",redirect:"follow"});
+ }catch(networkError){
+  const detail=String(networkError&&networkError.message||networkError||"Error de red");
+  throw new Error("No se pudo conectar con Apps Script ("+detail+"). Verificá que config.js apunte a la URL /exec de la implementación vigente y que la implementación permita acceso a cualquier usuario. Si el error ocurre al cargar archivos, revisá también la autorización de Google Drive.");
+ }
+ const raw=await res.text();
+ let data;
+ try{data=JSON.parse(raw)}catch(_){throw new Error("La API devolvió una respuesta no válida (HTTP "+res.status+"). "+raw.replace(/\s+/g," ").slice(0,240))}
+ if(!data.ok)throw new Error(data.error||"Error de API");
+ return data;
+}
+function activateEditorialModule(id){
+  const el=document.getElementById(id);
+  if(!el)return false;
+  document.querySelectorAll(".editorial-work-module").forEach(m=>{m.hidden=m!==el});
+  el.hidden=false;
+  try{history.replaceState(null,"","#"+id)}catch(_){}
+  requestAnimationFrame(()=>el.scrollIntoView({behavior:"smooth",block:"start"}));
+  if(id==="contactos-module"&&typeof loadContactsModule==="function")loadContactsModule();
+  if(id==="mailing-module"&&typeof loadMailingModule==="function")loadMailingModule();
+  if(id==="admin-agenda-module"&&typeof loadAdminAgenda==="function")loadAdminAgenda();
+  if(id==="funcionarios-module"&&typeof loadFuncionarios==="function")loadFuncionarios();
+  return false
+}
+async function load(){
+ if(!window.PRENSA_CONFIG?.apiUrl){$("api-status").textContent="Falta URL de API";$("draft-list").innerHTML='<p class="empty-state">Primero hay que publicar la API de Apps Script y colocar su URL en config.js.</p>';return}
+ try{const data=await post("adminList");items=data.items||[];$("api-status").textContent="Conectado";render();showNotice("✓ Conexión con Google Sheets confirmada.","success")}catch(e){$("api-status").textContent="Error de conexión";$("draft-list").innerHTML='<p class="empty-state">'+esc(e.message)+'</p>';showNotice("⚠ No se pudo consultar Google Sheets: "+e.message,"error")}
+}
+function render(){const visible=currentContentFilter==="Todos"?items:items.filter(x=>String(x.estado||"").trim().toLowerCase()===currentContentFilter.toLowerCase());$("count").textContent=visible.length+" "+(visible.length===1?"contenido":"contenidos");if(!visible.length){$("draft-list").innerHTML='<p class="empty-state">'+(currentContentFilter==="Publicado"?"No hay comunicados publicados en Google Sheets.":currentContentFilter==="Borrador"?"No hay borradores guardados.":"Todavía no hay comunicados cargados.")+'</p>';return}$("draft-list").innerHTML=visible.map(x=>'<article class="draft-item"><div><span class="draft-meta">'+esc(x.fecha)+' · '+esc(x.categoria)+' · '+esc(x.estado)+'</span><h3>'+esc(x.titulo)+'</h3><p>'+esc(x.resumen||"Sin resumen")+'</p></div><div class="draft-actions">'+(x.estado==="Publicado"?'<a class="secondary" target="_blank" rel="noopener" href="comunicado.html?id='+encodeURIComponent(x.id)+'">Ver publicado</a>':"")+'<button type="button" onclick="editItem(\''+esc(x.id)+'\')">Editar</button><button type="button" class="secondary" onclick="togglePublish(\''+esc(x.id)+'\')">'+(x.estado==="Publicado"?"Despublicar":"Publicar")+'</button><button type="button" class="ghost" onclick="deleteItem(\''+esc(x.id)+'\')">Eliminar</button></div></article>').join("")}
+function reset(){pendingVideo=null;pendingImages=[];pendingAudio=null;$("image-upload-status").textContent="No hay imágenes nuevas seleccionadas.";$("cover-upload-status").textContent="No hay foto principal nueva seleccionada.";$("video-upload-status").textContent="No hay video nuevo seleccionado.";$("audio-upload-status").textContent="No hay nota de audio seleccionada.";$("editor-form").reset();$("edit-id").value="";$("date").value=today;$("form-title").textContent="Nuevo comunicado";$("editor-status").textContent="Borrador"}
+function fill(x){$("edit-id").value=x.id;$("title").value=x.titulo;$("date").value=x.fecha;$("category").value=x.categoria;$("tag").value=x.tag||"";$("summary").value=x.resumen||"";$("content").value=x.contenido||"";$("coverImage").value=x.fotoPrincipal||"";$("gallery").value=(x.fotos||[]).join("\n");$("videoUrl").value=x.videoDriveUrl||x.videoUrl||"";$("audioUrl").value=x.audioUrl||"";$("coverFile").value="";$("imageFiles").value="";$("videoFile").value="";$("audioFile").value="";pendingVideo=null;pendingImages=[];pendingAudio=null;$("video-upload-status").textContent=x.videoDriveFileId?"Video almacenado en Google Drive.":"No hay video almacenado.";$("form-title").textContent="Editar comunicado";$("editor-status").textContent=x.estado;window.scrollTo({top:0,behavior:"smooth"})}
+function mediaPayload(){return{fotoPrincipal:$("coverImage").value.trim(),fotos:$("gallery").value.split(/\n+/).map(x=>x.trim()).filter(Boolean).join("\n"),videoUrl:$("videoUrl").value.trim(),audioUrl:$("audioUrl").value.trim()}}
+$("coverFile").addEventListener("change",e=>{$("cover-upload-status").textContent=e.target.files[0]?"Foto seleccionada: "+e.target.files[0].name:"No hay foto principal nueva seleccionada."});
+async function uploadPendingCover(id,title){const file=$("coverFile").files[0];if(!file)return null;$("cover-upload-status").textContent="Subiendo foto principal…";const data=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)});const result=await post("uploadCover",{id,titulo:title,fileName:file.name,mimeType:file.type||"image/jpeg",data});$("coverImage").value=result.cover.url;$("coverFile").value="";$("cover-upload-status").textContent="✓ Foto principal guardada.";return result.cover;}
+$("imageFiles").addEventListener("change",e=>{pendingImages=[...e.target.files];$("image-upload-status").textContent=pendingImages.length?pendingImages.length+" imagen(es) seleccionada(s).":"No hay imágenes nuevas seleccionadas."});
+async function uploadPendingImages(id,title){if(!pendingImages.length)return null;$("image-upload-status").textContent="Subiendo galería…";const files=[];for(const file of pendingImages){const data=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)});files.push({name:file.name,type:file.type||"image/jpeg",data})}const result=await post("uploadImages",{id,titulo:title,files:JSON.stringify(files)});pendingImages=[];$("imageFiles").value="";const refreshed=(await post("adminGet",{id})).item;$("gallery").value=(refreshed.fotos||[]).join("\n");$("image-upload-status").textContent="✓ Galería actualizada.";return result.images;}
+$("videoFile").addEventListener("change",e=>{pendingVideo=e.target.files[0]||null;$("video-upload-status").textContent=pendingVideo?"Video seleccionado: "+pendingVideo.name+" ("+(pendingVideo.size/1024/1024).toFixed(1)+" MB)":"No hay video nuevo seleccionado."});
+$("audioFile").addEventListener("change",e=>{pendingAudio=e.target.files[0]||null;$("audio-upload-status").textContent=pendingAudio?"MP3 seleccionado: "+pendingAudio.name:"No hay nota de audio seleccionada."});
+function fileChunkData(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error("No se pudo leer un fragmento del video."));reader.readAsDataURL(blob)})}
+async function uploadPendingVideo(id,title){
+ if(!pendingVideo)return null;
+ const file=pendingVideo,chunkSize=4*1024*1024,total=file.size;
+ $("video-upload-status").textContent="Preparando carga por fragmentos…";
+ const start=await post("uploadVideoStart",{id,titulo:title,fileName:file.name,mimeType:file.type||"video/mp4",totalSize:String(total)});
+ if(!start.upload?.sessionUrl)throw new Error("Apps Script no devolvió una sesión de carga de Google Drive.");
+ let offset=0,last=null;
+ while(offset<total){
+   const end=Math.min(offset+chunkSize,total);
+   const data=await fileChunkData(file.slice(offset,end));
+   $("video-upload-status").textContent="Subiendo a Google Drive: "+Math.round(end/total*100)+"%";
+   last=await post("uploadVideoChunk",{id,sessionUrl:start.upload.sessionUrl,folderId:start.upload.folderId,folderName:start.upload.folderName,totalSize:String(total),start:String(offset),end:String(end),chunkData:data});
+   const upload=last.upload||{};
+   if(upload.complete)break;
+   offset=Number(upload.nextStart||end);
+ }
+ if(!last?.upload?.complete)throw new Error("La carga del video no llegó a completarse.");
+ pendingVideo=null;$("videoFile").value="";$("videoUrl").value=last.upload.previewUrl;$("video-upload-status").textContent="Video guardado en Drive: "+last.upload.folderName;return last.upload;
+}
+async function uploadPendingAudio(id,title){if(!pendingAudio)return;const file=pendingAudio;if(file.type!=='audio/mpeg'&&!/\\.mp3$/i.test(file.name))throw new Error('La nota de audio debe ser un archivo MP3.');$("audio-upload-status").textContent="Subiendo MP3…";const b64=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result));r.onerror=reject;r.readAsDataURL(file)});const data=await post("uploadAudio",{id,title,fileName:file.name,mimeType:"audio/mpeg",data:b64});$("audioUrl").value=data.audio?.url||"";$("audio-upload-status").textContent="✓ MP3 cargado correctamente.";pendingAudio=null;}
+async function ensureDraftForMedia(){const id=$("edit-id").value;if(id)return(await post("adminGet",{id})).item;const d=await post("save",payload());$("edit-id").value=d.item.id;return d.item;}
+$("upload-cover-btn").onclick=async()=>{try{const d=await ensureDraftForMedia();await uploadPendingCover(d.id,d.titulo);await load()}catch(e){showNotice("⚠ "+e.message,"error")}};
+$("upload-gallery-btn").onclick=async()=>{try{const d=await ensureDraftForMedia();await uploadPendingImages(d.id,d.titulo);await load()}catch(e){showNotice("⚠ "+e.message,"error")}};
+$("upload-video-btn").onclick=async()=>{try{const d=await ensureDraftForMedia();await uploadPendingVideo(d.id,d.titulo);await load()}catch(e){showNotice("⚠ "+e.message,"error")}};
+$("upload-audio-btn").onclick=async()=>{try{const d=await ensureDraftForMedia();await uploadPendingAudio(d.id,d.titulo);await load()}catch(e){showNotice("⚠ "+e.message,"error")}};
+window.editItem=id=>{const x=items.find(i=>i.id===id);if(x)fill(x)}
+window.togglePublish=async id=>{try{const x=items.find(i=>i.id===id),action=x.estado==="Publicado"?"unpublish":"publish";await post(action,{id});showNotice(action==="publish"?"Comunicado publicado":"Comunicado pasado a borrador");await load()}catch(e){showNotice("⚠ "+e.message,"error")}}
+window.deleteItem=async id=>{if(!confirm("¿Eliminar este comunicado?"))return;try{await post("delete",{id});showNotice("✓ Comunicado eliminado.","success");reset();await load()}catch(e){showNotice("⚠ "+e.message,"error")}}
+function payload(){return{id:$("edit-id").value,fecha:$("date").value,categoria:$("category").value,tag:$("tag").value.trim(),titulo:$("title").value.trim(),resumen:$("summary").value.trim(),contenido:$("content").value.trim(),...mediaPayload()}}
+$("editor-form").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const btn=$("save-btn");
+ let savedItem=null,mediaError=null;
+ try{
+  btn.disabled=true;btn.textContent="Guardando…";
+  showNotice("Guardando borrador en Google Sheets…","success");
+  const data=await post("save",payload());
+  if(!data.item)throw new Error("La API no confirmó el guardado en Google Sheets.");
+  savedItem=data.item;
+  // El texto se guarda primero. Un fallo de Drive no debe presentarse como si el borrador no se hubiera guardado.
+  try{
+   await uploadPendingCover(savedItem.id,savedItem.titulo);
+   await uploadPendingImages(savedItem.id,savedItem.titulo);
+   await uploadPendingVideo(savedItem.id,savedItem.titulo);
+   await uploadPendingAudio(savedItem.id,savedItem.titulo);
+  }catch(err){mediaError=err;}
+  const refreshed=(await post("adminGet",{id:savedItem.id})).item;
+  if(refreshed){fill(refreshed);savedItem=refreshed;}else fill(savedItem);
+  await load();
+  if(mediaError){
+   showNotice("⚠ El borrador quedó guardado en Google Sheets, pero falló la carga de un archivo en Drive: "+mediaError.message+". El texto está guardado; corregí los permisos de Drive y volvé a subir el archivo.","error");
+  }else{
+   showNotice("✓ Borrador guardado correctamente en Google Sheets.","success");
+  }
+ }catch(err){
+  showNotice((savedItem?"⚠ El borrador se guardó, pero no se pudo completar la verificación: ":"⚠ No se pudo guardar en Google Sheets: ")+err.message,"error");
+ }finally{btn.disabled=false;btn.textContent="Guardar borrador"}
+})
+$("publish-btn").addEventListener("click",async()=>{const btn=$("publish-btn");try{btn.disabled=true;btn.textContent="Publicando…";showNotice("Guardando contenido…","success");const hadMedia=pendingImages.length>0||!!pendingVideo||!!pendingAudio;let data;if(hadMedia){data=await post("save",payload());if(!data.item)throw new Error("La API no devolvió el comunicado guardado.");await uploadPendingImages(data.item.id,data.item.titulo);await uploadPendingVideo(data.item.id,data.item.titulo);await uploadPendingAudio(data.item.id,data.item.titulo);const mediaReady=(await post("adminGet",{id:data.item.id})).item;if(!mediaReady)throw new Error("No se pudo verificar el contenido multimedia en Drive.");data=await post("publish",{id:data.item.id});}else{data=await post("savePublish",payload())}if(!data.item)throw new Error("La API no devolvió el comunicado publicado.");const refreshed=(await post("adminGet",{id:data.item.id})).item;fill(refreshed);showNotice("✓ Comunicado publicado correctamente en la sala de prensa.","success");await load()}catch(err){showNotice("⚠ No se pudo publicar: "+err.message,"error")}finally{btn.disabled=false;btn.textContent="Publicar"}})
+$("clear-btn").addEventListener("click",reset);
+let contacts=[],mailLists=[],selectedContactIds=new Set(),publishedForMailing=[];
+async function loadContactsModule(){try{const r=await post("contactsList");contacts=r.items||[];selectedContactIds=new Set([...selectedContactIds].filter(id=>contacts.some(c=>c.id===id)));renderContacts();showNotice("✓ Contactos sincronizados desde Google Sheets: "+contacts.length,"success")}catch(e){$("contacts-list").innerHTML='<p class="empty-state">⚠ No se pudieron sincronizar los contactos: '+esc(e.message)+'</p>';showNotice("⚠ "+e.message,"error")}}
+function renderContacts(){const q=($("contacts-search")?.value||"").toLowerCase().trim();const data=contacts.filter(c=>!q||[c.nombreCompleto,c.medio,c.cargo,c.email,c.telefono,c.localidad].join(" ").toLowerCase().includes(q));$("contacts-count").textContent=data.length+" contactos";$("contacts-selected").textContent=selectedContactIds.size+" seleccionados";$("contacts-list").innerHTML=data.length?data.map(c=>'<article class="contact-row"><label class="contact-select"><input type="checkbox" data-contact-id="'+esc(c.id)+'"'+(selectedContactIds.has(c.id)?" checked":"")+'> <span>Seleccionar</span></label><div class="contact-data"><strong>'+esc(c.nombreCompleto||c.email)+'</strong><span>'+esc(c.medio||"Sin medio")+(c.cargo?" · "+esc(c.cargo):"")+'</span><span>'+esc(c.email||"Sin correo")+(c.telefono?" · "+esc(c.telefono):"")+'</span>'+(c.listas.length?'<div class="contact-memberships">Listas: '+c.listas.map(esc).join(" · ")+'</div>':"")+'</div></article>').join(""):'<p class="empty-state">No hay contactos que coincidan con la búsqueda.</p>';document.querySelectorAll("#contacts-list input[data-contact-id]").forEach(cb=>cb.onchange=()=>{if(cb.checked)selectedContactIds.add(cb.dataset.contactId);else selectedContactIds.delete(cb.dataset.contactId);$("contacts-selected").textContent=selectedContactIds.size+" seleccionados"})}
+function refreshAssignmentLists(){$("assignment-list").innerHTML='<option value="">Seleccionar…</option>'+mailLists.filter(l=>l.estado==="Activa").map(l=>'<option value="'+esc(l.id)+'">'+esc(l.nombre)+'</option>').join("")}
+function closeListModal(){$("list-modal").hidden=true}
+$("contacts-search")?.addEventListener("input",renderContacts);$("refresh-contacts")?.addEventListener("click",loadContactsModule);$("select-all-contacts").onclick=()=>{if(selectedContactIds.size===contacts.length)selectedContactIds.clear();else contacts.forEach(c=>selectedContactIds.add(c.id));renderContacts()};
+$("assign-selected-btn").onclick=async()=>{if(!selectedContactIds.size){showNotice("Seleccioná al menos un contacto.","error");return}refreshAssignmentLists();$("assignment-summary").textContent=selectedContactIds.size+" contacto(s) seleccionado(s).";$("assignment-list").value="";$("assignment-new-name").value="";$("assignment-new-description").value="";$("list-modal").hidden=false};
+$("save-assignment-btn").onclick=async()=>{try{const ids=[...selectedContactIds];let listId=$("assignment-list").value;const newName=$("assignment-new-name").value.trim();if(!listId&&!newName)throw new Error("Elegí una lista existente o creá una nueva.");if(!listId){const r=await post("listSave",{nombre:newName,descripcion:$("assignment-new-description").value.trim(),estado:"Activa"});listId=r.item.id}await post("contactsAssignList",{contactIds:ids.join(","),listId});closeListModal();await loadMailingModule();await loadContactsModule();showNotice("✓ Contactos asignados a la lista.","success")}catch(e){showNotice("⚠ "+e.message,"error")}};
+async function loadMailingModule(){try{const r=await post("listsList");mailLists=r.items||[];renderLists();refreshAssignmentLists();fillPublishedArticles()}catch(e){showNotice("⚠ No se pudieron cargar las listas: "+e.message,"error")}}
+function renderLists(){$("mailing-count").textContent=mailLists.length+" listas";$("mailing-lists").innerHTML=mailLists.map(l=>'<label class="mailing-list"><input type="checkbox" data-list-id="'+esc(l.id)+'"> <span><strong>'+esc(l.nombre)+'</strong><small>'+esc(l.descripcion||"Lista de distribución")+'</small></span></label>').join("")}
+function fillPublishedArticles(){publishedForMailing=items.filter(x=>x.estado==="Publicado");$("published-articles").innerHTML=publishedForMailing.length?publishedForMailing.map(x=>'<label class="mailing-article"><input type="checkbox" value="'+esc(x.id)+'"> <span><strong>'+esc(x.titulo)+'</strong><small>'+esc(x.fecha)+' · '+esc(x.categoria)+'</small></span></label>').join(""):'<p class="empty-state">No hay artículos publicados.</p>'}
+function selectedListIds(){return [...document.querySelectorAll("#mailing-lists input:checked")].map(x=>x.value)}
+function selectedArticleIds(){return [...document.querySelectorAll("#published-articles input:checked")].map(x=>x.value)}
+$("preview-campaign-btn").onclick=async()=>{try{const ids=selectedListIds();if(!ids.length)throw new Error("Seleccioná al menos una lista.");const r=await post("campaignPreview",{listIds:ids.join(",")});$("campaign-preview").innerHTML="<strong>"+r.preview.total+" destinatarios únicos</strong><br>"+r.preview.destinatarios.slice(0,15).map(x=>esc(x.email)).join("<br>")+(r.preview.total>15?"<br>…":"")}catch(e){showNotice("⚠ "+e.message,"error")}};
+async function generateMailing(){const ids=selectedListIds(),articles=selectedArticleIds();if(!ids.length)throw new Error("Seleccioná al menos una lista.");if(!articles.length)throw new Error("Seleccioná al menos un artículo publicado.");const asunto=$("campaign-subject").value.trim()||"Información institucional MIDES Florida";let r=await post("mailingSave",{asunto,listIds:ids.join(","),comunicadoIds:articles.join(",")});const publicUrl=new URL("mailing.html?id="+encodeURIComponent(r.item.id),location.href).href;r=await post("mailingSave",{id:r.item.id,asunto,listIds:ids.join(","),comunicadoIds:articles.join(","),publicUrl});$("mailing-result").hidden=false;$("mailing-link").href=r.item.publicUrl;$("mailing-link").textContent=r.item.publicUrl;$("whatsapp-link").href=r.item.whatsappUrl;$("campaign-preview").innerHTML="<strong>✓ Mailing institucional generado.</strong><br>"+r.item.destinatarios+" destinatarios";return r.item}
+$("save-campaign-btn").onclick=async()=>{try{await generateMailing();showNotice("✓ Mailing institucional generado.","success")}catch(e){showNotice("⚠ "+e.message,"error")}};
+$("send-mailing-btn").onclick=async()=>{try{const item=await generateMailing();if(!confirm("¿Enviar ahora el mailing a "+item.destinatarios+" destinatarios?"))return;const sent=await post("mailingSend",{id:item.id});showNotice("✓ Mailing enviado: "+sent.result.sent+" destinatarios.","success")}catch(e){showNotice("⚠ No se pudo enviar: "+e.message,"error")}};
+$("new-list-btn").onclick=()=>{$("list-id").value="";$("list-name").value="";$("list-description").value="";$("list-modal").hidden=false};
+let funcionarios=[];
+async function loadFuncionarios(){try{const r=await post("funcionariosList");funcionarios=r.items||[];renderFuncionarios()}catch(e){$("func-list").innerHTML='<p class="empty-state">⚠ '+esc(e.message)+'</p>'}}
+function renderFuncionarios(){$("func-count").textContent=funcionarios.filter(x=>x.estado==="Activo").length+" activos";$("func-list").innerHTML=funcionarios.length?funcionarios.map(x=>'<article class="draft-item"><div><span class="draft-meta">'+esc(x.rol)+' · '+esc(x.area)+' · '+esc(x.estado||"Activo")+'</span><h3>'+esc(x.nombre)+'</h3><p><span style="color:'+esc(x.color||"#005ca9")+'">●</span> Color asignado al área. Por seguridad, la contraseña no se muestra en el listado.</p></div><div class="draft-actions"><button type="button" class="ghost" onclick="deleteFuncionario(\''+esc(x.id)+'\')">'+(x.estado==="Activo"?"Desactivar":"Activar")+'</button></div></article>').join(""):'<p class="empty-state">No hay funcionarios registrados.</p>'}
+$("func-copy-id").onclick=async()=>{const id=$("func-id-value").textContent.trim();if(!id)return;try{await navigator.clipboard.writeText(id);showNotice("✓ ID copiada al portapapeles.","success")}catch(_){showNotice("ID: "+id,"success")}};
+$("func-copy-password").onclick=async()=>{const v=$("func-password-value").textContent.trim();if(!v)return;try{await navigator.clipboard.writeText(v);showNotice("✓ Clave copiada al portapapeles.","success")}catch(_){showNotice("Clave: "+v,"success")}};
+$("func-add").onclick=async()=>{const btn=$("func-add");try{btn.disabled=true;btn.textContent="Guardando en Google Sheets…";const nombre=$("func-name").value.trim(),area=$("func-area").value.trim(),rol=$("func-role").value;if(!nombre||!area)throw new Error("Completá nombre y área.");const passwordProvisoria=$("func-password").value.trim();if(passwordProvisoria.length<8)throw new Error("La contraseña provisoria debe tener al menos 8 caracteres.");const r=await post("funcionarioSave",{nombre,area,passwordProvisoria,rol:"Funcionario"});const f=r.item;if(!f?.id)throw new Error("Google Sheets no devolvió la ID del funcionario.");$("func-id-value").textContent=f.id;$("func-password-value").textContent=f.password||"—";$("func-meta-value").textContent="Estado: "+(f.estado||"Activo")+" · Fecha: "+(f.fechaCreacion||"—")+" · Color de área: "+(f.color||"—");$("func-id-box").classList.add("show");$("func-name").value="";$("func-area").value="";$("func-password").value="";showNotice("✓ CONFIRMADO: usuario creado y verificado en Google Sheets. ID: "+f.id,"success");await loadFuncionarios()}catch(e){showNotice("✕ ERROR: el funcionario NO fue confirmado en Google Sheets. "+e.message,"error")}finally{btn.disabled=false;btn.textContent="Agregar funcionario"}};
+window.deleteFuncionario=async id=>{if(!confirm("¿Desactivar este funcionario?"))return;try{await post("funcionarioDelete",{id});showNotice("✓ Funcionario desactivado.","success");await loadFuncionarios()}catch(e){showNotice("⚠ "+e.message,"error")}};
+let adminAgendaDate=new Date(),adminAgendaItems=[];
+function monthBounds(d){const y=d.getFullYear(),m=d.getMonth();return {from:new Date(y,m,1,0,0,0),to:new Date(y,m+1,0,23,59,59)}}
+function isoLocal(d){const p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds())}
+function adminMonthName(d){return d.toLocaleDateString("es-UY",{month:"long",year:"numeric"}).replace(/^./,x=>x.toUpperCase())}
+function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate()}
+function adminTime(v){const d=new Date(v);return isNaN(d)?String(v||""):d.toLocaleTimeString("es-UY",{hour:"2-digit",minute:"2-digit"})}
+function renderAdminCalendar(){
+ const d=adminAgendaDate,now=new Date(),first=new Date(d.getFullYear(),d.getMonth(),1),start=new Date(first);start.setDate(first.getDate()-((first.getDay()+6)%7));
+ const cells=[];
+ for(let i=0;i<42;i++){const day=new Date(start);day.setDate(start.getDate()+i);const dayItems=adminAgendaItems.filter(x=>sameDay(new Date(x.inicio),day));cells.push('<div class="admin-cal-day '+(day.getMonth()!==d.getMonth()?"outside ":"")+(sameDay(day,now)?"today":"")+'"><div class="admin-cal-date">'+day.getDate()+'</div>'+dayItems.map(x=>'<button type="button" class="admin-cal-event" style="border-left-color:'+esc(x.color)+'" onclick="showAdminActivity(\''+esc(x.id)+'\')"><strong>'+esc(adminTime(x.inicio))+' · '+esc(x.actividad)+'</strong><span>'+esc(x.area)+' · '+esc(x.lugar)+'</span></button>').join("")+'</div>')}
+ $("admin-month-label").textContent=adminMonthName(d);$("admin-calendar").innerHTML='<div class="admin-cal-head">'+["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"].map(x=>"<span>"+x+"</span>").join("")+'</div><div class="admin-cal-grid">'+cells.join("")+'</div>';$("admin-agenda-count").textContent=adminAgendaItems.length+" "+(adminAgendaItems.length===1?"actividad":"actividades");
+}
+async function loadAdminAgenda(){try{const b=monthBounds(adminAgendaDate),r=await post("adminAgendaList",{from:isoLocal(b.from),to:isoLocal(b.to)});adminAgendaItems=r.items||[];renderAdminCalendar()}catch(e){$("admin-calendar").innerHTML='<p class="empty-state">⚠ No se pudo cargar la agenda: '+esc(e.message)+'</p>';showNotice("⚠ "+e.message,"error")}}
+window.showAdminActivity=id=>{const x=adminAgendaItems.find(a=>a.id===id);if(!x)return;const detail=$("admin-activity-detail");detail.hidden=false;detail.innerHTML='<div class="section-heading"><div><p class="eyebrow blue">DETALLE DE COBERTURA</p><h3>'+esc(x.actividad)+'</h3></div><button type="button" class="ghost" onclick="this.parentElement.parentElement.hidden=true">Cerrar</button></div><div class="admin-detail-grid">'+(x.imagenUrl?'<img src="'+esc(x.imagenUrl)+'" alt="Imagen de '+esc(x.actividad)+'">':"")+'<div><p><strong>Área:</strong> <span style="color:'+esc(x.color)+'">●</span> '+esc(x.area)+'</p><p><strong>Propuesto por:</strong> '+esc(x.nombreUsuario)+'</p><p><strong>Horario:</strong> '+esc(new Date(x.inicio).toLocaleString("es-UY"))+' a '+esc(adminTime(x.fin))+'</p><p><strong>Lugar:</strong> '+esc(x.lugar)+'</p><p><strong>Descripción:</strong> '+esc(x.descripcion||"Sin información complementaria.")+'</p></div></div>';detail.scrollIntoView({behavior:"smooth",block:"center"})};
+$("admin-prev-month").onclick=()=>{adminAgendaDate=new Date(adminAgendaDate.getFullYear(),adminAgendaDate.getMonth()-1,1);loadAdminAgenda()};$("admin-next-month").onclick=()=>{adminAgendaDate=new Date(adminAgendaDate.getFullYear(),adminAgendaDate.getMonth()+1,1);loadAdminAgenda()};$("admin-today").onclick=()=>{adminAgendaDate=new Date();loadAdminAgenda()};
+// Recuperar la autorización solo durante esta sesión de pestaña: no pedir clave al guardar.
+try{
+  if(sessionStorage.getItem("mides_editorial_session")==="authorized"){
+    editorKey=window.PRENSA_CONFIG?.adminKey||"Ik3r2026";
+    editorialAuthorized=true;
+    $("editor-auth-screen")?.classList.add("ok");
+    load();
+  }
+}catch(_){}
+</script>
+</body>
+</html>
